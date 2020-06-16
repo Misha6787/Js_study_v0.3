@@ -5,7 +5,7 @@ const money = 60000,
     mission = 1e9, 
     period = 5;
 
-    let addExpenses = 'Комуналка, Интернет, Такси';
+let addExpenses = 'Комуналка, Интернет, Такси';
     
     console.log(typeof money); 
     console.log(typeof income);
@@ -16,7 +16,7 @@ const money = 60000,
     console.log('Период равен ' + period + ' месяцев');
     console.log('Цель заработать ' + mission + ' рублей');
 
-    addExpenses = addExpenses.toLowerCase();
+addExpenses = addExpenses.toLowerCase();
 
     console.log(addExpenses.split(','));
 
