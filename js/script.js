@@ -36,15 +36,15 @@ let amount = amount1 + amount2;
 
 let budgetMonth = money - amount;
 
-    console.log(budgetMonth);
+    console.log('Бюджет на месяц: ' + budgetMonth);
 
 let timeToMission = Math.ceil(mission / budgetMonth);
 
-    console.log(timeToMission);
+    console.log('Вы выполните свою цель за ' + timeToMission + ' месяца(ев)');
 
 const budgetDay = Math.floor(budgetMonth / 30);
 
-    console.log(budgetDay);
+    console.log('Бюджет на день: ' + budgetDay);
 
 if (budgetDay > 1200) {
 
