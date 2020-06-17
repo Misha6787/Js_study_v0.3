@@ -1,5 +1,5 @@
 'use strict';
-let isNumber = function(n) {
+const isNumber = function(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
 
 
@@ -9,8 +9,8 @@ const income = 'Фриланс',
     period = 5;
 
 let money,
-    addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую'),
-    deposit = confirm('Есть ли у вас депозит в банке?');
+    addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
+const deposit = confirm('Есть ли у вас депозит в банке?');
  
 
 const start = function() {
