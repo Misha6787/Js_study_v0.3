@@ -13,7 +13,7 @@ let money,
     deposit = confirm('Есть ли у вас депозит в банке?');
  
 
-let start = function() {
+const start = function() {
     do {
         money = prompt('Ваш месячный доход?');
     }
@@ -21,7 +21,7 @@ let start = function() {
 };
 start();
 
-let showTypeOf = function(data) {
+const showTypeOf = function(data) {
     console.log(data, typeof(data)); 
 };
     showTypeOf(money);
@@ -31,8 +31,8 @@ let showTypeOf = function(data) {
 
 addExpenses = addExpenses.toLowerCase();
     console.log(addExpenses.split(',')); 
-let expenses = [];
-let getExpensesMonth = function() {
+const expenses = [];
+const getExpensesMonth = function() {
     let sum = 0;
     for(let i = 0; i < 2; i++) {
         expenses[i] = prompt('Введите обязательную статью расходов');
@@ -40,14 +40,14 @@ let getExpensesMonth = function() {
     }
     return sum;
 };
-let expensesAmount = getExpensesMonth();
+const expensesAmount = getExpensesMonth();
     console.log('Расходы за месяц: ' + expensesAmount);
 
 
 function getAccumulatedMonth(a, b) {
     return a - b;
 }
-let accumulatedMonth = getAccumulatedMonth(money, expensesAmount);
+const accumulatedMonth = getAccumulatedMonth(money, expensesAmount);
 
 
 function getTargetMonth(a, b) {
@@ -60,8 +60,6 @@ function getTargetMonth(a, b) {
     return;
 }
     getTargetMonth(mission, accumulatedMonth);
-
-let timeToMission = Math.ceil(mission / accumulatedMonth);
 
 
 const budgetDay = Math.floor(accumulatedMonth / 30);
