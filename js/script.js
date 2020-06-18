@@ -95,6 +95,6 @@ appData.getBudget();
 
 appData.getTargetMonth(appData.mission, appData.budgetMonth);
 
-console.log(appData.getStatusIncome());
+    console.log(appData.getStatusIncome());
 
 appData.statusData();
