@@ -32,20 +32,21 @@ const appData = {
         
 
         const GetExpensesMonth = function() {
-            let sum = 0;
             for(let i = 0; i < 2; i++) {
-                appData.expenses = prompt('Введите обязательную статью расходов');
+                let sum = 0;
+                const prom = prompt('Введите обязательную статью расходов');
                 do {
-                    sum = +prompt('Во сколько это обойдется?');
+                    appData.expenses[prom] = sum = +prompt('Во сколько это обойдется?');
                 } 
                 while(!isNumber(sum) || sum == '');
-                sum += sum;
             }
-            return sum;
+            let rez = 0;
+            for(let key in appData.expenses) {
+               rez +=appData.expenses[key];
+            }
+            appData.expensesMonth = rez;
         };
-        
-        appData.expensesMonth = GetExpensesMonth();
-
+        GetExpensesMonth();
     }, 
     getBudget: function() { 
 
