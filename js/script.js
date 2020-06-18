@@ -13,7 +13,7 @@ const start = function() {
 };
 start();
 
-let appData = {
+const appData = {
     income: {},
     addIncome: [],
     expenses: {},
@@ -26,22 +26,36 @@ let appData = {
     budgetMonth: 0, 
     expensesMonth: 0,
     asking: function(){
-        let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
+        const addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
         appData.deposit = confirm('Есть ли у вас депозит в банке?');
         appData.addExpenses = addExpenses.toLowerCase().split(',');
         
-        let exenQ1 = prompt('Введите обязательную статью расходов');
+        const exenQ1 = prompt('Введите обязательную статью расходов');
         appData.expenses[exenQ1] = +prompt('Во сколько это обойдется?');
 
-        let exenQ2 = prompt('Введите обязательную статью расходов');
+        const exenQ2 = prompt('Введите обязательную статью расходов');
         appData.expenses[exenQ2] = +prompt('Во сколько это обойдется?');
     }, 
     getBudget: function() { 
-        appData.budgetMonth = appData.budget - appData.expensesAmount;
+        function sum( obj ) {
+            let sum = 0;
+            for( let el in obj ) {
+              if( obj.hasOwnProperty( el ) ) {
+                sum += parseFloat( obj[el] );
+              }
+            }
+            return sum;
+        }
+        appData.expensesMonth = sum( appData.expenses );
+
+        appData.budgetMonth = appData.budget - appData.expensesMonth;
+
         console.log('Бюджет на месяц: ' + appData.budgetMonth);
 
         appData.budgetDay = Math.floor(appData.budgetMonth / 30);
         console.log('Бюджет на день: ' + appData.budgetDay);
+
+        console.log('Расходы за месяц: ' + appData.expensesMonth);
     },
     getTargetMonth: function(a, b) {
         Math.ceil(a / b);
@@ -66,32 +80,21 @@ let appData = {
             return ('Что то пошло не так');
         } 
     },
+    statusData: function() {
+            console.log('');
+            console.log('Наша программа включает в себя данные: ');
+        for (let key in appData) {
+            console.log(key + ':' + appData[key]);
+        }
+    },
 };
 
 appData.asking();
-
-function sum( obj ) {
-    let sum = 0;
-    for( let el in obj ) {
-      if( obj.hasOwnProperty( el ) ) {
-        sum += parseFloat( obj[el] );
-      }
-    }
-    return sum;
-}
-appData.expensesMonth = sum( appData.expenses );
-
-appData.expensesAmount = appData.expensesMonth;
-    console.log('Расходы за месяц: ' + appData.expensesAmount);
 
 appData.getBudget();
 
 appData.getTargetMonth(appData.mission, appData.budgetMonth);
 
-    console.log(appData.getStatusIncome());
+console.log(appData.getStatusIncome());
 
-    console.log('');
-    console.log('Наша программа включает в себя данные: ');
-for (let key in appData) {
-    console.log(key + ':' + appData[ key]);
-}
+appData.statusData();
