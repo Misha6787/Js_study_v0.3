@@ -30,27 +30,24 @@ const appData = {
         appData.deposit = confirm('Есть ли у вас депозит в банке?');
         appData.addExpenses = addExpenses.toLowerCase().split(',');
         
-        const exenQ1 = prompt('Введите обязательную статью расходов');
-        appData.expenses[exenQ1] = +prompt('Во сколько это обойдется?');
 
-        const exenQ2 = prompt('Введите обязательную статью расходов');
-        appData.expenses[exenQ2] = +prompt('Во сколько это обойдется?');
-    }, 
-    getBudget: function() { 
-        function sum( obj ) {
+        const GetExpensesMonth = function() {
             let sum = 0;
-            for( let el in obj ) {
-              if( obj.hasOwnProperty( el ) && isNumber(obj[ el ] )) {
-                sum += parseFloat( obj[el] );
-              } else if (!isNumber(obj[ el ] )) {
-                    alert('Введи число!');
-                    appData.asking();
-                    appData.getBudget();
-              }
+            for(let i = 0; i < 2; i++) {
+                appData.expenses = prompt('Введите обязательную статью расходов');
+                do {
+                    sum = +prompt('Во сколько это обойдется?');
+                } 
+                while(!isNumber(sum) || sum == '');
+                sum += sum;
             }
             return sum;
-        }
-        appData.expensesMonth = sum( appData.expenses );
+        };
+        
+        appData.expensesMonth = GetExpensesMonth();
+
+    }, 
+    getBudget: function() { 
 
         appData.budgetMonth = appData.budget - appData.expensesMonth;
 
