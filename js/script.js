@@ -40,8 +40,12 @@ const appData = {
         function sum( obj ) {
             let sum = 0;
             for( let el in obj ) {
-              if( obj.hasOwnProperty( el ) ) {
+              if( obj.hasOwnProperty( el ) && isNumber(obj[ el ] )) {
                 sum += parseFloat( obj[el] );
+              } else if (!isNumber(obj[ el ] )) {
+                    alert('Введи число!');
+                    appData.asking();
+                    appData.getBudget();
               }
             }
             return sum;
