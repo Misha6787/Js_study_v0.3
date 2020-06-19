@@ -16,22 +16,63 @@ const appData = {
     income: {},
     addIncome: [],
     expenses: {},
+    addExpenses2: [],
     addExpenses: [],
     mission: 100000,
     period: 3,
     budget: money,
     budgetDay: 0,
     deposit: [],
+    persentDeposit: 0,
+    moneyDeposit: 0,
     budgetMonth: 0, 
+    strL: 0,
     expensesMonth: 0,
     asking: function(){
-        const addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
+
+        if(confirm('У вас есть дополнительный источник заработка?')) {
+            let itemIncome;
+            do {
+                itemIncome = prompt('Какой у вас есть дополнительный заработок?');
+            } 
+            while(isNumber(itemIncome) || itemIncome == '' || itemIncome.match(/^[ ]+$/));
+            do {
+                appData.income[itemIncome] = prompt('Сколько в месяц вы на этом зарабатываете?');
+            }
+            while(!isNumber(appData.income[itemIncome]));
+        }
+
+        appData.addExpenses2 = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
         appData.deposit = confirm('Есть ли у вас депозит в банке?');
-        appData.addExpenses = addExpenses.toLowerCase().split(',');
+
         
+        function ucFirst(str) {
+            if (!str) return str;
+            appData.strL= str.length;
+            str = str[0].toUpperCase() + str.slice(1);
+            return str;
+          }
+
+        appData.addExpenses2 = appData.addExpenses2.split(',');
+
+
+        appData.addExpenses2.map(function (name){
+            name = name.trim();
+            name += ', ';
+            name += ucFirst(name);
+            name = name.slice(appData.strL);
+            appData.addExpenses += name;
+        });
+        console.log(appData.addExpenses);
+
+
 
         for(let i = 0; i < 2; i++) {
-            const prom = prompt('Введите обязательную статью расходов');
+            let prom;
+            do {
+                prom = prompt('Введите обязательную статью расходов');
+            }
+            while(isNumber(prom) || prom == '' || prom.match(/^[ ]+$/));
             do {
                 appData.expenses[prom] = prompt('Во сколько это обойдется?');
             } 
@@ -84,6 +125,22 @@ const appData = {
             console.log(key + ':' + appData[key]);
         }
     },
+    getInfoDeposit: function() {
+        if(appData.deposit) {
+            do {
+                appData.persentDeposit = prompt('Какой у вас годовой процент?');
+            }
+            while(!isNumber(appData.persentDeposit));
+
+            do {
+                appData.moneyDeposit = prompt('Какая сумма заложена');
+            }
+            while(!isNumber(appData.moneyDeposit));
+        }
+    },
+    calcSavedMoney: function() {
+        return appData.budgetMonth * appData.period;
+    }
 };
 
 appData.asking();
@@ -95,3 +152,7 @@ appData.getTargetMonth(appData.mission, appData.budgetMonth);
     console.log(appData.getStatusIncome());
 
 appData.statusData();
+
+appData.getInfoDeposit();
+
+console.log(appData.calcSavedMoney(), appData.persentDeposit, appData.moneyDeposit);
