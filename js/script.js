@@ -12,7 +12,6 @@ const start = function() {
     while (!isNumber(money));
 };
 start();
-
 const appData = {
     income: {},
     addIncome: [],
@@ -31,22 +30,18 @@ const appData = {
         appData.addExpenses = addExpenses.toLowerCase().split(',');
         
 
-        const getExpensesMonth = function() {
-            for(let i = 0; i < 2; i++) {
-                let sum = 0;
-                const prom = prompt('Введите обязательную статью расходов');
-                do {
-                    appData.expenses[prom] = sum = +prompt('Во сколько это обойдется?');
-                } 
-                while(!isNumber(sum) || sum == '');
-            }
-            let rez = 0;
-            for(let key in appData.expenses) {
-               rez +=appData.expenses[key];
-            }
-            appData.expensesMonth = rez;
-        };
-        getExpensesMonth();
+        for(let i = 0; i < 2; i++) {
+            const prom = prompt('Введите обязательную статью расходов');
+            do {
+                appData.expenses[prom] = prompt('Во сколько это обойдется?');
+            } 
+            while(!isNumber(appData.expenses[prom]));
+        }
+
+        for(let key in appData.expenses) {
+            appData.expensesMonth += +appData.expenses[key];
+        }
+
     }, 
     getBudget: function() { 
 
