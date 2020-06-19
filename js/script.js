@@ -31,7 +31,7 @@ const appData = {
         appData.addExpenses = addExpenses.toLowerCase().split(',');
         
 
-        const GetExpensesMonth = function() {
+        const getExpensesMonth = function() {
             for(let i = 0; i < 2; i++) {
                 let sum = 0;
                 const prom = prompt('Введите обязательную статью расходов');
@@ -46,7 +46,7 @@ const appData = {
             }
             appData.expensesMonth = rez;
         };
-        GetExpensesMonth();
+        getExpensesMonth();
     }, 
     getBudget: function() { 
 
