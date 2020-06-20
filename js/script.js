@@ -12,6 +12,7 @@ const start = function() {
     while (!isNumber(money));
 };
 start();
+
 const appData = {
     income: {},
     addIncome: [],
@@ -19,7 +20,7 @@ const appData = {
     addExpenses: [],
     mission: 100000,
     period: 3,
-    budget: money,
+    budget: +money,
     budgetDay: 0,
     deposit: [],
     persentDeposit: 0,
@@ -27,23 +28,22 @@ const appData = {
     budgetMonth: 0, 
     expensesMonth: 0,
     asking: function(){
-
         if(confirm('У вас есть дополнительный источник заработка?')) {
             let itemIncome;
             do {
                 itemIncome = prompt('Какой у вас есть дополнительный заработок?');
             } 
-            while(isNumber(itemIncome) || itemIncome === null || itemIncome == '' || itemIncome.match(/^[ ]+$/));
+            while(isNumber(itemIncome) || itemIncome === null || itemIncome === '' || itemIncome.match(/^[ ]+$/));
             do {
-                appData.income[itemIncome] = prompt('Сколько в месяц вы на этом зарабатываете?');
+                appData.income[itemIncome] = +prompt('Сколько в месяц вы на этом зарабатываете?');
             }
-            while(!isNumber(appData.income[itemIncome]));
+            while(!isNumber(appData.income[itemIncome]) || appData.income[itemIncome] === 0 );
         }
 
         do {
         appData.addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
         }
-        while(appData.addExpenses == null || appData.addExpenses === '' || appData.addExpenses.match(/^[ ]+$/));
+        while(appData.addExpenses === null || appData.addExpenses === '' || appData.addExpenses.match(/^[ ]+$/));
 
         appData.deposit = confirm('Есть ли у вас депозит в банке?');
 
@@ -64,9 +64,9 @@ const appData = {
             }
             while(isNumber(prom) || prom === null || prom === '' || prom.match(/^[ ]+$/));
             do {
-                appData.expenses[prom] = prompt('Во сколько это обойдется?');
+                appData.expenses[prom] = +prompt('Во сколько это обойдется?');
             } 
-            while(!isNumber(appData.expenses[prom]));
+            while(!isNumber(appData.expenses[prom]) || appData.expenses[prom] === 0 );
         }
 
         for(let key in appData.expenses) {
@@ -118,14 +118,14 @@ const appData = {
     getInfoDeposit: function() {
         if(appData.deposit) {
             do {
-                appData.persentDeposit = prompt('Какой у вас годовой процент?');
+                appData.persentDeposit = +prompt('Какой у вас годовой процент?');
             }
-            while(!isNumber(appData.persentDeposit) || appData.persentDeposit === null || appData.persentDeposit === '');
+            while(!isNumber(appData.persentDeposit) || appData.persentDeposit === null || appData.persentDeposit === 0);
 
             do {
-                appData.moneyDeposit = prompt('Какая сумма заложена');
+                appData.moneyDeposit = +prompt('Какая сумма заложена');
             }
-            while(!isNumber(appData.moneyDeposit));
+            while(!isNumber(appData.moneyDeposit) || appData.moneyDeposit === 0 );
         }
     },
     calcSavedMoney: function() {
